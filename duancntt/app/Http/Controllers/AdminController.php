@@ -15,13 +15,13 @@ class AdminController extends Controller
         return view('admin_login');
     }
 
-    public function AuthLogin(Type $var = null)
+    public function AuthLogin()
     {
         $admin_id = Session::get('admin_id');
         if ($admin_id) {
-            return Redirect('sc_admin/dashboard');
+            return Redirect::to('sc_admin/dashboard');
         }else{
-            return Redirect('/sc_admin')->send();
+            return Redirect::to('/sc_admin')->send();
         }
     }
 

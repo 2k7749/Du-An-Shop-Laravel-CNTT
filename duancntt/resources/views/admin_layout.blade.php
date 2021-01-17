@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-    <a href="{{URL::to('sc_admin/dasboard')}}" class="logo">
+    <a href="{{URL::to('sc_admin/dashboard')}}" class="logo">
         ADMIN
     </a>
     <div class="sidebar-toggle-box">
@@ -95,10 +95,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Danh mục sản phẩm</span>
                     </a>
                     <ul class="sub">
-						<li><a href="typography.html">Thêm danh mục</a></li>
-						<li><a href="glyphicon.html">Liệt kê danh mục</a></li>
+						<li><a href="{{URL::to('/sc_admin/add-categoryproduct')}}">Thêm danh mục</a></li>
+						<li><a href="{{URL::to('/sc_admin/all-categoryproduct')}}">Danh sách danh mục</a></li>
                     </ul>
                 </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Thương hiệu sản phẩm</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/sc_admin/add-brandproduct')}}">Thêm thương hiệu</a></li>
+						<li><a href="{{URL::to('/sc_admin/all-brandproduct')}}">Danh sách thương hiệu</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Sản phẩm</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/sc_admin/add-product')}}">Thêm sản phẩm</a></li>
+						<li><a href="{{URL::to('/sc_admin/all-product')}}">Danh sách sản phẩm</a></li>
+                    </ul>
+                </li> 
+
             </ul>            
         </div>
         <!-- sidebar menu end-->
@@ -111,12 +134,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         <!-- CALL DASBOARD ADMIn-->
         @yield('admin_dashboard')
-        
+        @yield('addCategoryPrdoduct')
+        @yield('allCategoryPrdoduct')
+        @yield('addBrandPrdoduct')
+        @yield('allBrandPrdoduct')
+        @yield('addPrdoduct')
+        @yield('allPrdoduct')
+
 	</section>
  <!-- footer -->
     <div class="footer">
         <div class="wthree-copyright">
-            <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+            {{-- <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p> --}}
         </div>
     </div>
   <!-- / footer -->

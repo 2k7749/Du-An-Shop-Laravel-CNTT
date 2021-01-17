@@ -58,6 +58,18 @@ body a:hover{
     list-style-type: none;
     padding-left: 0;
 }
+
+/* THumb */
+span.fa-thumb-styling.fa.fa-thumbs-up {
+    font-size: 20px;
+    color: red;
+}
+span.fa-thumb-styling.fa.fa-thumbs-down {
+    font-size: 20px;
+    color: green;
+}
+
+
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
     height:17px;
