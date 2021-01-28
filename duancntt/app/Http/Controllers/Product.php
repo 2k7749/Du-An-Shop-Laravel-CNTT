@@ -139,6 +139,7 @@ class Product extends Controller
     }
     // End admin function
 
+    
     public function product_detail($product_id)
     {
         $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();

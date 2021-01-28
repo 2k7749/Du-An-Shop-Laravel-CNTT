@@ -1,44 +1,51 @@
 @extends('admin_layout')
 @section('addCategoryPrdoduct')
-<div class="form-w3layouts">
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    Thêm danh mục sản phẩm
-                </header>
-                @php
+
+<div class="intro-y flex items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">
+        Thêm danh mục sản phẩm
+    </h2>
+</div>
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 lg:col-span-6">
+                 @php
                     $message = Session::get('message');
                     if ($message) {
                         echo '<span style="text-align: center;color: red;width: 100%;">',$message,'</span>';
                         Session::put('message',null);
                     }
                 @endphp
-                <div class="panel-body">
-                    <div class="position-center">
-                        <form role="form" action="{{URL::to('/sc_admin/save-categoryproduct')}}" method="post">  
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="categoryName">Tên danh mục</label>
-                                <input type="text" class="form-control" name="category_product_name" id="categoryName" placeholder="Enter name category">
-                            </div>
-                            <div class="form-group">
-                                <label for="categoryDescription">Mô tả danh mục</label>
-                                <textarea style="resize: none" rows="8" type="password" class="form-control" name="category_product_desc" id="categoryDescription" placeholder="Mô tả danh mục"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputFile">Hiện thị</label>
-                                <select name="category_product_status" class="form-control input-sm m-bot15">
-                                    <option value="0">Ẩn</option>
-                                    <option value="1">Hiển thị</option>
-                                </select>
-                            </div>
-                            <button type="submit" name="add_category_product" class="btn btn-info" >Them danh muc</button>
-                        </form>
-                    </div>
+        <!-- BEGIN: Form Layout -->
+        <form role="form" action="{{URL::to('/sc_admin/save-categoryproduct')}}" method="post">  
+            {{ csrf_field() }}
+        <div class="intro-y box p-5">
+            <div>
+                <label>Tên danh mục</label>
+                <input type="text" name="category_product_name" id="categoryName" class="input w-full border mt-2" placeholder="Nhập tên danh mục">
+            </div>
+           
+            
+            <div class="mt-3">
+                <label>Mô tả danh mục</label>
+                <div class="mt-2">
+                    <textarea placeholder="Nhập nội dung mô tả về danh mục" class="summernote" name="category_product_desc" id="categoryDescription"></textarea>
                 </div>
-            </section>
+            </div>
+
+            <div class="sm:mt-2">Hiện thị
+                <select name="category_product_status" class="input input--sm border mr-2">
+                    <option value="0">Ẩn</option>
+                    <option value="1">Hiển thị</option>
+                </select>
+            </div>
+
+            <div class="text-right mt-5">
+                <button  type="submit" name="add_category_product" type="button" class="button w-40 bg-theme-1 text-white">Thêm danh mục</button>
+            </div>
         </div>
+        </form>
+        <!-- END: Form Layout -->
     </div>
 </div>
+
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryProduct;
 use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\Product;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ use App\Http\Controllers\CartController;
 //frond-end
 Route::get('/',[HomeController::class,'index']);
 Route::get('/trang-chu',[HomeController::class,'index']);
+Route::get('/all-products',[HomeController::class,'index']);
 
 //danh mục sản phẩm - trang chủ
 Route::get('/danh-muc-san-pham/{category_id}',[CategoryProduct::class,'show_category_home']);
@@ -86,7 +88,29 @@ Route::post('/sc_admin/update-product/{product_id}', [Product::class,'update_Pro
 
 
 //Cart
-Route::post('/save-cart', [CartController::class,'save_cart']); 
+Route::post('/save-cart', [CartController::class,'save_cart']);
+Route::post('/add-to-cart', [CartController::class,'add_to_cart']);
+
 Route::get('/show-cart', [CartController::class,'show_cart']); 
 Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_to_cart']);
 Route::post('/update-cart-quantity', [CartController::class,'update_to_cart']);
+
+
+// check out
+Route::get('/login-checkout', [CheckoutController::class,'login_checkout']);
+Route::post('/login-customer', [CheckoutController::class,'login_customer']);
+Route::get('/logout-checkout', [CheckoutController::class,'logout_checkout']);
+Route::post('/add-customer', [CheckoutController::class,'add_customer']);
+Route::get('/checkout', [CheckoutController::class,'checkout']);
+Route::post('/save-infor-shipping', [CheckoutController::class,'save_infor_shipping']);
+Route::get('/payment', [CheckoutController::class,'payment']);
+Route::post('/order-place', [CheckoutController::class,'order_place']);
+Route::get('/show-cart-checkout', [CheckoutController::class,'show_cart_checkout']);
+
+
+
+//ORDER
+Route::get('/sc_admin/manage-order', [AdminController::class,'manage_order']);
+Route::get('/sc_admin/view-order/{orderId}', [AdminController::class,'view_order']);
+
+
