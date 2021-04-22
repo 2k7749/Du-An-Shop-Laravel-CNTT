@@ -97,6 +97,7 @@ class BrandProduct extends Controller
     public function show_brand_home($brand_id)
     {
         $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $category_slide = DB::table('tbl_category_product')->where('category_status','1')->get();
 
         $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
 
@@ -105,6 +106,6 @@ class BrandProduct extends Controller
 
         $brand_name = DB::table('tbl_brand')->where('brand_id',$brand_id)->limit(1)->get();
 
-        return view('pages/brand/show_brand')->with('category',$category_product)->with('brand',$brand_product)->with('brand_by_id',$brand_by_id)->with('brand_name',$brand_name);
+        return view('pages/brand/show_brand')->with('category',$category_product)->with('brand',$brand_product)->with('brand_by_id',$brand_by_id)->with('brand_name',$brand_name)->with('slide',$category_slide);
     }
 }

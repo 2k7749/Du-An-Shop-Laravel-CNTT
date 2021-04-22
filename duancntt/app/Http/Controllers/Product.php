@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class Product extends Controller
 {
-
-    
     public function AuthLogin()
     {
         $admin_id = Session::get('admin_id');

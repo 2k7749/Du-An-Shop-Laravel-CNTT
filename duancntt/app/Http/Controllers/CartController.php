@@ -53,11 +53,30 @@ class CartController extends Controller
         return Redirect::to('/');
     }
 
+
+    public function add_to_cart_ajax()
+    {
+        $productId = request()->get('productId');
+        $quantity = request()->get('quantity');
+        $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
+
+        $product_info = DB::table('tbl_product')->where('product_id',$productId)->first();
+
+        $data['id'] = $product_info->product_id;
+        $data['qty'] = $quantity;
+        $data['name'] = $product_info->product_name;
+        $data['price'] = $product_info->product_price;
+        $data['weight'] = 1;
+        $data['options']['image'] = $product_info->product_image;
+        Cart::add($data);
+        return json_encode(Cart::content());
+    }
+
     public function show_cart()
     {
         $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
-
         return view('pages/cart/cart');
     }
 
@@ -73,5 +92,19 @@ class CartController extends Controller
         $qty = $request->quantity_cart;
         Cart::update($rowId,$qty);
         return Redirect::to('/show-cart');
+    }
+
+    public function update_to_cart_ajax()
+    {
+        $rowId = request()->rowId_cart;
+        $qty = request()->quantity_cart;
+        Cart::update($rowId,$qty);
+        // $itemCart= "";
+        // foreach(Cart::content() as $item){
+        //     if ($item->rowId == $rowId) {
+        //         $itemCart = $item; break;
+        //     }
+        // }
+        return json_encode(Cart::content());
     }
 }

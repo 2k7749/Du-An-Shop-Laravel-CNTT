@@ -31,7 +31,7 @@
       </div>
       <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <div class="w-56 relative text-gray-700">
-              <input type="text" class="input w-56 box pr-10 placeholder-theme-13" placeholder="Search...">
+              <input type="text" class="input w-56 box pr-10 placeholder-theme-13" id="search_id_order" placeholder="Tìm theo mã đơn hàng">
               <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i> 
           </div>
       </div>
@@ -44,6 +44,7 @@
                   <th class="whitespace-no-wrap">Người đặt hàng</th>
                   <th class="whitespace-no-wrap">Tổng giá trị</th>
                   <th class="whitespace-no-wrap">Trạng thái đơn</th>
+                  <th class="whitespace-no-wrap">Trạng thái thanh toán</th>
                   <th class="whitespace-no-wrap" style="width:30px;"></th>
               </tr>
           </thead>
@@ -52,16 +53,18 @@
             @foreach($all_order as $key => $order)
               <tr class="intro-x">
                   <td>
-                      <a href="" class="font-medium whitespace-no-wrap">{{ $order->customer_name }}</a> 
+                      <p href="" class="font-medium whitespace-no-wrap">{{ $order->customer_name }}</p> 
                   </td>
 
                   <td>
-                    <a href="" class="font-medium whitespace-no-wrap">{{ $order->order_total }}</a> 
+                    <p href="" class="font-medium whitespace-no-wrap">{{ $order->order_total }}</p> 
                   </td>
                   <td>
-                    <a href="" class="font-medium whitespace-no-wrap">{{ $order->order_status }}</a> 
+                    <p href="" class="font-medium whitespace-no-wrap">{{ $order->order_status }}</p> 
                   </td>
-                 
+                  <td>
+                    <p href="" class="font-medium whitespace-no-wrap">{{ $order->payment_status }}</p> 
+                  </td>
                   <td class="table-report__action w-56">
                       <div class="flex justify-center items-center">
                           <a class="flex items-center mr-3" href="{{URL::to('/sc_admin/view-order/'.$order->order_id)}}"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Xem chi tiết đơn hàng </a>
@@ -74,32 +77,6 @@
           </tbody>
       </table>
   </div>
-  <!-- END: Data List -->
-  <!-- BEGIN: Pagination -->
-  <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
-      <ul class="pagination">
-          <li>
-              <a class="pagination__link" href=""> <i class="w-4 h-4" data-feather="chevrons-left"></i> </a>
-          </li>
-          <li>
-              <a class="pagination__link" href=""> <i class="w-4 h-4" data-feather="chevron-left"></i> </a>
-          </li>
-          <li> <a class="pagination__link" href="">...</a> </li>
-          <li> <a class="pagination__link pagination__link--active" href="">1</a> </li>
-          <li> <a class="pagination__link " href="">2</a> </li>
-          <li> <a class="pagination__link" href="">3</a> </li>
-          <li> <a class="pagination__link" href="">...</a> </li>
-          <li>
-              <a class="pagination__link" href=""> <i class="w-4 h-4" data-feather="chevron-right"></i> </a>
-          </li>
-          <li>
-              <a class="pagination__link" href=""> <i class="w-4 h-4" data-feather="chevrons-right"></i> </a>
-          </li>
-      </ul>
-      <div class="hidden md:block mx-right text-gray-600">Showing 1 to 10 of 150 entries</div>
-     
-  </div>
-  <!-- END: Pagination -->
 </div>
 <!-- BEGIN: Delete Confirmation Modal -->
 <div class="modal" id="delete-confirmation-modal">
@@ -110,10 +87,8 @@
           <div class="text-gray-600 mt-2">Muốn xoá ấn nút Xoá bên dưới.</div>
       </div>
       <div class="px-5 pb-8 text-center">
-          <button type="button" data-dismiss="modal" class="button w-24 border text-gray-700 mr-1">Huỷ</button>
-     
-          <button type="button" class="button w-24 bg-theme-6 text-white"><a href="{{URL::to('/sc_admin/delete-order/'.$order->order_id)}}">Xoá luôn</a></button>
-   
+            <button type="button" data-dismiss="modal" class="button w-24 border text-gray-700 mr-1">Huỷ</button>
+            {{-- <button type="button" class="button w-24 bg-theme-6 text-white"><a href="{{URL::to('/sc_admin/delete-order/'.$order->order_id)}}">Xoá luôn</a></button> --}}
         </div>
   </div>
 </div>

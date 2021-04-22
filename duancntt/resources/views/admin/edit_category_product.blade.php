@@ -16,7 +16,7 @@
                 @endphp
         <!-- BEGIN: Form Layout -->
         @foreach ($edit_categoryproduct as $item => $edit_value)
-            <form role="form" action="{{URL::to('/sc_admin/update-categoryproduct/'.$edit_value->category_id)}}" method="post">  
+            <form role="form" action="{{URL::to('/sc_admin/update-categoryproduct/'.$edit_value->category_id)}}" method="post" enctype="multipart/form-data">  
                 {{ csrf_field() }}
                 <div class="intro-y box p-5">
                     <div>
@@ -32,7 +32,22 @@
                         </div>
                     </div>
 
-                    <div class="sm:mt-2">Hiện thị
+                    <div class="mt-3">
+                        <label>Action</label>
+                        <div class="mt-2">
+                            <textarea placeholder="" class="summernote" name="category_action" id="categoryaction">@php echo $edit_value->category_action; @endphp</textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="form-group note-form-group note-group-select-from-files">
+                            <label >Hình ảnh sản phẩm</label>
+                            <input class="input w-full border mt-2" value="{{$edit_value->category_image}}" type="file" name="category_image">
+                            <img src="/public/upload/category/{{ $edit_value->category_image}}" alt="" height="100px" width="120px">
+                        </div>
+                    </div>
+
+                    <div class="sm:mt-2">Hiển thị
                         <select name="category_product_status" class="input input--sm border mr-2">
                             @if ($edit_value ->category_status == 1)
                                     <option value="1" selected="selected">Hiển thị</option>

@@ -21,26 +21,6 @@
 										</a>
 									</div>
 								</div>
-
-								<div class="item-slick3" data-thumb="{{URL::to('public/upload/product/'.$product->product_image)}}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="{{URL::to('public/upload/product/'.$product->product_image)}}" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{URL::to('public/upload/product/'.$product->product_image)}}">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
-
-								<div class="item-slick3" data-thumb="{{URL::to('public/upload/product/'.$product->product_image)}}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="{{URL::to('public/upload/product/'.$product->product_image)}}" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{URL::to('public/upload/product/'.$product->product_image)}}">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -94,28 +74,28 @@
 
 
                             <span>
-
-                            <form action="{{URL::to('/save-cart')}}" method="POST">
-                                {{csrf_field()}}
+								{{-- action="{{URL::to('/save-cart')}}" method="POST" --}}
+                            {{-- <form> --}}
+                                {{-- {{csrf_field()}} --}}
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-204 flex-w flex-m respon6-next">
-                                        <input name="productid_hidden" type="hidden" value="{{$product->product_id}}" />
+                                        <input name="productid_hidden" id="pID" type="hidden" value="{{$product->product_id}}" />
                                         <div class="wrap-num-product flex-w m-r-20 m-tb-10">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
-                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="qty" value="1">
+                                            <input class="mtext-104 cl3 txt-center num-product" type="number" id="qty" name="qty" value="1">
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
                                         </div>
     
-                                        <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" id="add-to-cart">
                                             Add to cart
                                         </button>
                                     </div>
                                 </div>	
-                            </form>
+                            {{-- </form> --}}
 						</div>
 
 						<!--  -->
@@ -153,10 +133,6 @@
 
 						<li class="nav-item p-b-10">
 							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
-						</li>
-
-						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
 						</li>
 					</ul>
 
@@ -231,87 +207,6 @@
 						</div>
 
 						<!-- - -->
-						<div class="tab-pane fade" id="reviews" role="tabpanel">
-							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm">
-										<!-- Review -->
-										<div class="flex-w flex-t p-b-68">
-											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-												<img src="images/avatar-01.jpg" alt="AVATAR">
-											</div>
-
-											<div class="size-207">
-												<div class="flex-w flex-sb-m p-b-17">
-													<span class="mtext-107 cl2 p-r-20">
-														Ariana Grande
-													</span>
-
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
-													</span>
-												</div>
-
-												<p class="stext-102 cl6">
-													Quod autem in homine praestantissimum atque optimum est, id deseruit. Apud ceteros autem philosophos
-												</p>
-											</div>
-										</div>
-										
-										<!-- Add review -->
-										<form class="w-full">
-											<h5 class="mtext-108 cl2 p-b-7">
-												Add a review
-											</h5>
-
-											<p class="stext-102 cl6">
-												Your email address will not be published. Required fields are marked *
-											</p>
-
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
-
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-												</div>
-											</div>
-
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-												Submit
-											</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -329,5 +224,60 @@
         @endforeach
 	</section>
 
-    
+	<script>
+		$('#add-to-cart').click(function (e){
+			e.preventDefault();
+			var nameProduct = $('.js-name-detail').text();
+			var product_ID = $('#pID').val();
+			var sl = $('#qty').val();
+
+			$.post('/add-to-cart-ajax', {_token: "{{csrf_token()}}",'productId': product_ID, 'quantity': sl}, function (data,countItem) {
+
+				var total = 0;
+				swal(nameProduct, "is added to cart !", "success").then(()=>{
+
+					//reset item cart
+					$("#ul-item-cart").empty();
+					
+					var c = Object.keys(JSON.parse(data)).length;
+
+					// count quantity
+					$('#qwerty #qty-show').replaceWith('<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" id="qty-show" data-notify="'+c+'"><i class="zmdi zmdi-shopping-cart"></i></div>');
+					//item cart
+					$.each(JSON.parse(data), function( key, value ) {
+						$("#ul-item-cart").append(' <li class="header-cart-item flex-w flex-t m-b-12" id="list-item-cart"> ' +
+								'<div class="header-cart-item-img">' +
+									'<img src="../public/upload/product/'+value['options']['image']+'" alt="IMG"  width="60px" height="80px">' +
+								'</div>' +
+
+								'<div class="header-cart-item-txt p-t-8">' +
+									'<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">' +
+										''+value['name']+'' +
+									'</a>' +
+
+									'<span class="header-cart-item-info">' +
+										''+value['qty']+' x '+value['price'].toLocaleString()+' VNĐ ' +
+									'</span>' +
+								'</div>'+
+
+							'</li>'
+						);
+
+						total += value['price']*value['qty']
+					});
+
+					$('#cart-total').replaceWith('<div class="header-cart-total w-full p-tb-40" id="cart-total">Total: '+total.toLocaleString('en-US')+' VNĐ '+'</div>');
+
+				});
+			});	
+		});
+	</script>
+
+	<script>
+		$('#qwerty').on('click', '.js-show-cart', function(e) {
+			e.preventDefault();
+			$('.js-panel-cart').addClass('show-header-cart');
+		});
+	</script>
+
 @endsection

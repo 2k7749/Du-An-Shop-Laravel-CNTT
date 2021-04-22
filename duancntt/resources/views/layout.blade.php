@@ -34,6 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/main.css')}}">
 <!--===============================================================================================-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 </head>
@@ -48,40 +49,40 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
-						Free shipping for standard order over $100
+						ĐỒ ÁN PHÁT TRIỂN MÃ NGUỒN MỞ
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<?php 
-							$customer_id = Session::get('customer_id');
-							$shipping_id = Session::get('shipping_id');
-							 if ($customer_id!=null &&$shipping_id==null) { ?>
-								<a href="{{URL::to('/logout-checkout')}}" class="flex-c-m trans-04 p-lr-25">
-									Đăng xuất
-								</a>
-								<?php }else if ($customer_id!=null &&$shipping_id!=null){ ?>
-									<a href="{{URL::to('/payment')}}" class="flex-c-m trans-04 p-lr-25">
-										Đăng nhập
-									</a>
-						<?php }else{ ?>
-							<a href="{{URL::to('/login-checkout')}}" class="flex-c-m trans-04 p-lr-25">
-								Đăng nhập
-							</a>
-						<?php } ?>
 						
+					<?php 
+						$customer_id = Session::get('customer_id');
+						$shipping_id = Session::get('shipping_id');
+						$user_name = Session::get('user_name');
 
+						 if ($customer_id!=null &&$shipping_id==null) { ?>
+							<a href="{{URL::to('/logout-checkout')}}" class="flex-c-m trans-04 p-lr-25">
+								<?=$user_name ?> - Đăng xuất
+							</a>
+							<?php }
+							else if ($customer_id!=null &&$shipping_id!=null){ 
+							?>
+								<a href="{{URL::to('/logout-checkout')}}" class="flex-c-m trans-04 p-lr-25">
+									<?=$user_name ?> - Đăng xuất
+								</a>
+						<?php }else{ ?>
+						<a href="{{URL::to('/login-checkout')}}" class="flex-c-m trans-04 p-lr-25">
+							Đăng nhập
+						</a>
+					<?php } ?>
+						
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							EN
 						</a>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
+							VNĐ
 						</a>
-					</div>
+					</div> 
 				</div>
 			</div>
 
@@ -89,7 +90,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="{{URL::to('/trang-chu')}}" class="logo">
 						<img src="{{asset('public/frontend/images/icons/logo-01.png')}}" alt="IMG-LOGO">
 					</a>
 
@@ -98,19 +99,14 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="{{URL::to('/trang-chu')}}">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
 							</li>
 
 							<li>
-								<a href="#show-now">Shop</a>
+								<a href="{{URL::to('/all-products')}}">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
+							<li>
+								<a href="{{URL::to('/show-cart')}}">Cart</a>
 							</li>
 
 							<li>
@@ -209,11 +205,6 @@
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
@@ -296,7 +287,7 @@
 				
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						Total: {{Cart::subtotal().' '.'VNĐ'}}
+						Total: {{Cart::subtotal(0,'.',',') .' '.'VNĐ'}}
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
@@ -404,81 +395,33 @@
 	<div class="sec-banner bg0 p-t-80 p-b-50">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-					<!-- Block1 -->
-					<div class="block1 wrap-pic-w">
-						<img src="{{asset('public/frontend/images/banner-01.jpg')}}" alt="IMG-BANNER">
 
-						<a href="/danh-muc-san-pham/15" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-							<div class="block1-txt-child1 flex-col-l">
-								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Women
-								</span>
-
-								<span class="block1-info stext-102 trans-04">
-									Spring 2021
-								</span>
+					@foreach ($slide as $item => $category_slide)
+						<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+							<!-- Block1 -->
+							<div class="block1 wrap-pic-w">
+								<img src="{{asset('public/upload/category/').'/'.$category_slide->category_image }}" alt="IMG-BANNER" width="366px" height="266px">
+		
+								<a href="#" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+									<div class="block1-txt-child1 flex-col-l">
+										<span class="block1-name ltext-102 trans-04 p-b-8">
+											{{$category_slide->category_name}}
+										</span>
+		
+										<span class="block1-info stext-102 trans-04">
+											@php echo $category_slide->category_action; @endphp
+										</span>
+									</div>
+		
+									<div class="block1-txt-child2 p-b-4 trans-05">
+										<div class="block1-link stext-101 cl0 trans-09">
+											Shop Now
+										</div>
+									</div>
+								</a>
 							</div>
-
-							<div class="block1-txt-child2 p-b-4 trans-05">
-								<div class="block1-link stext-101 cl0 trans-09">
-									Shop Now
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-					<!-- Block1 -->
-					<div class="block1 wrap-pic-w">
-						<img src="{{asset('public/frontend/images/banner-02.jpg')}}" alt="IMG-BANNER">
-
-						<a href="{{URL::to('/danh-muc-san-pham/14')}}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-							<div class="block1-txt-child1 flex-col-l">
-								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Men
-								</span>
-
-								<span class="block1-info stext-102 trans-04">
-									Spring 2021
-								</span>
-							</div>
-
-							<div class="block1-txt-child2 p-b-4 trans-05">
-								<div class="block1-link stext-101 cl0 trans-09">
-									Shop Now
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-					<!-- Block1 -->
-					<div class="block1 wrap-pic-w">
-						<img src="{{asset('public/frontend/images/banner-03.jpg')}}" alt="IMG-BANNER">
-
-						<a href="#show-now" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-							<div class="block1-txt-child1 flex-col-l">
-								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Kids
-								</span>
-
-								<span class="block1-info stext-102 trans-04">
-									Spring 2021
-								</span>
-							</div>
-
-							<div class="block1-txt-child2 p-b-4 trans-05">
-								<div class="block1-link stext-101 cl0 trans-09">
-									Shop Now
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				
+						</div>
+					@endforeach
 			</div>
 		</div>
 	</div>
@@ -496,15 +439,14 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						<a style="color: #888" href="{{URL::to('/all-products')}}">All Prodcuts</a>
+						All Products
 					</button>
-
+					
 					@foreach ($category as $item =>$category)
-								<button  class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" > 
-									<a style="color: #888" href="{{URL::to('/danh-muc-san-pham/'.$category->category_id)}}">{{$category->category_name}}</a>
-								</button>
+						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".{{$category->category_id}}">
+							{{$category->category_name}}
+						</button>
 					@endforeach
-
 
 				</div>
 
@@ -878,160 +820,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
-	<!-- Modal1 -->
-	{{-- <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-		<div class="overlay-modal1 js-hide-modal1"></div>
-
-		<div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="{{asset('public/frontend/images/icons/icon-close.png')}}" alt="CLOSE">
-				</button>
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg')}}">
-										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-01.jpg')}}" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg')}}">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg')}}">
-										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-02.jpg')}}" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg')}}">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg')}}">
-										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-03.jpg')}}" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg')}}">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
-							</h4>
-
-							<span class="mtext-106 cl2">
-								$58.79
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-							</p>
-							
-							<!--  -->
-							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
-										</button>
-									</div>
-								</div>	
-							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> --}}
-
 <!--===============================================================================================-->	
 	<script src="{{asset('public/frontend/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
@@ -1106,12 +894,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		/*---------------------------------------------*/
 
-		$('.js-addcart-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
-			});
-		});
+		// $('.js-addcart-detail').each(function(){
+		// 	var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+		// 	$(this).on('click', function(){
+		// 		swal(nameProduct, "is added to cart !", "success");
+		// 	});
+		// });
 	
 	</script>
 <!--===============================================================================================-->

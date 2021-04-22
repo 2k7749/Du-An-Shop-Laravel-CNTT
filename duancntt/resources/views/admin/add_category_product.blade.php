@@ -16,7 +16,7 @@
                     }
                 @endphp
         <!-- BEGIN: Form Layout -->
-        <form role="form" action="{{URL::to('/sc_admin/save-categoryproduct')}}" method="post">  
+        <form role="form" action="{{URL::to('/sc_admin/save-categoryproduct')}}" method="post" enctype="multipart/form-data">  
             {{ csrf_field() }}
         <div class="intro-y box p-5">
             <div>
@@ -29,6 +29,20 @@
                 <label>Mô tả danh mục</label>
                 <div class="mt-2">
                     <textarea placeholder="Nhập nội dung mô tả về danh mục" class="summernote" name="category_product_desc" id="categoryDescription"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <label>Action</label>
+                <div class="mt-2">
+                    <textarea placeholder="Nhập nội dung mô tả về danh mục" class="summernote" name="category_action" id="categoryaction"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <div class="form-group note-form-group note-group-select-from-files">
+                    <label >Hình ảnh danh mục</label>
+                    <input class="input w-full border mt-2" type="file" name="category_image">
                 </div>
             </div>
 

@@ -23,10 +23,10 @@ use App\Http\Controllers\CheckoutController;
 //frond-end
 Route::get('/',[HomeController::class,'index']);
 Route::get('/trang-chu',[HomeController::class,'index']);
-Route::get('/all-products',[HomeController::class,'index']);
+Route::get('/all-products',[HomeController::class,'All_Product']);
 
 //danh mục sản phẩm - trang chủ
-Route::get('/danh-muc-san-pham/{category_id}',[CategoryProduct::class,'show_category_home']);
+// Route::get('/danh-muc-san-pham/{category_id}',[CategoryProduct::class,'show_category_home']);
 Route::get('/thuong-hieu-san-pham/{brand_id}',[BrandProduct::class,'show_brand_home']);
 
 //Product - trang chủ
@@ -91,9 +91,12 @@ Route::post('/sc_admin/update-product/{product_id}', [Product::class,'update_Pro
 Route::post('/save-cart', [CartController::class,'save_cart']);
 Route::post('/add-to-cart', [CartController::class,'add_to_cart']);
 
+Route::post('/add-to-cart-ajax', [CartController::class,'add_to_cart_ajax']);
+
 Route::get('/show-cart', [CartController::class,'show_cart']); 
 Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_to_cart']);
 Route::post('/update-cart-quantity', [CartController::class,'update_to_cart']);
+Route::post('/update-cart-quantity-ajax', [CartController::class,'update_to_cart_ajax']);
 
 
 // check out
@@ -106,11 +109,14 @@ Route::post('/save-infor-shipping', [CheckoutController::class,'save_infor_shipp
 Route::get('/payment', [CheckoutController::class,'payment']);
 Route::post('/order-place', [CheckoutController::class,'order_place']);
 Route::get('/show-cart-checkout', [CheckoutController::class,'show_cart_checkout']);
+Route::post('/update-cart-quantity-checkout', [CheckoutController::class,'update_to_cart']);
 
 
 
 //ORDER
 Route::get('/sc_admin/manage-order', [AdminController::class,'manage_order']);
 Route::get('/sc_admin/view-order/{orderId}', [AdminController::class,'view_order']);
+
+//Login - Logout
 
 

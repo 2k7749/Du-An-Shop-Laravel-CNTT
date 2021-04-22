@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Product Detail</title>
+	<title>Product</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->	
@@ -34,8 +34,6 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/util.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/main.css')}}">
 	<!--===============================================================================================-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
 </head>
 
 
@@ -62,6 +60,9 @@
 						 if ($customer_id!=null &&$shipping_id==null) { ?>
 							<a href="{{URL::to('/logout-checkout')}}" class="flex-c-m trans-04 p-lr-25">
 								<?=$user_name ?> - Đăng xuất
+								<ul class="sub-menu">
+									<li><a href="#">Change</a></li>
+								</ul>
 							</a>
 							<?php }
 							else if ($customer_id!=null &&$shipping_id!=null){ 
@@ -124,12 +125,12 @@
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m" id="qwerty">
+					<div class="wrap-icon-header flex-w flex-r-m">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" id="qty-show" data-notify="{{Cart::content()->count()}}">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{Cart::content()->count()}}">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
@@ -138,7 +139,7 @@
 						</a>
 					</div>
 				</nav>
-			</div>		
+			</div>	
 		</div>
 
 		<!-- Header Mobile -->
@@ -205,11 +206,6 @@
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
@@ -241,7 +237,7 @@
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
 				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="{{asset('public/frontend/images/icons/icon-close2.png')}}" alt="CLOSE">
+					<img src="images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
 				<form class="wrap-search-header flex-w p-l-15">
@@ -271,9 +267,9 @@
 			</div>
 			
 			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full" id="ul-item-cart">
+				<ul class="header-cart-wrapitem w-full">
 						@foreach (Cart::content() as $item)
-						<li class="header-cart-item flex-w flex-t m-b-12" id="list-item-cart">
+						<li class="header-cart-item flex-w flex-t m-b-12">
 							<div class="header-cart-item-img">
 								<img src="{{('../public/upload/product/').$item->options->image}}" alt="IMG"  width="60px" height="80px">
 							</div>
@@ -289,10 +285,10 @@
 							</div>
 						</li>
 						@endforeach
-				</ul>				
+					</ul>				
 				
 				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40" id="cart-total">
+					<div class="header-cart-total w-full p-tb-40">
 						Total: {{Cart::subtotal(0,'.',',') .' '.'VNĐ'}}
 					</div>
 
@@ -318,61 +314,12 @@
 		</div>
 	</div>
 
-	<!-- Product Detail -->
+		
+
+	<!-- Product-->
 	
-	@yield('contentdetails')
+	@yield('allProduct')
 
-
-	<!-- Related Products -->
-	<section class="sec-relate-product bg0 p-t-45 p-b-105">
-		<div class="container">
-			<div class="p-b-45">
-				<h3 class="ltext-106 cl5 txt-center">
-					Sản phẩm liên quan
-				</h3>
-			</div>
-
-			<!-- Slide2 -->
-			<div class="wrap-slick2">
-				<div class="slick2">
-					@foreach ($recommended_product as $item=>$product_recomm)
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img width="283" height="350" src="{{URL::to('public/upload/product/'.$product_recomm->product_image)}}" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										{{$product_recomm->product_name}}
-									</a>
-
-									<span class="stext-105 cl3">
-										{{number_format($product_recomm->product_price).' VNĐ'}}
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="{{asset('public/frontend/images/icons/icon-heart-01.png')}}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{asset('public/frontend/images/icons/icon-heart-02.png')}}" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					@endforeach
-					
-				</div>
-			</div>
-		</div>
-	</section>
 		
 
 	<!-- Footer -->
@@ -487,6 +434,29 @@
 				</div>
 			</div>
 
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1">
+						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
+					</a>
+				</div>
+
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -523,31 +493,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="{{asset('public/frontend/images/product-detail-01.jpg')}}">
+									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-01.jpg')}}" alt="IMG-PRODUCT">
+											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{asset('public/frontend/images/product-detail-01.jpg')}}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
 									</div>
 
-									<div class="item-slick3" data-thumb="{{asset('public/frontend/images/product-detail-02.jpg')}}">
+									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-02.jpg')}}" alt="IMG-PRODUCT">
+											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{asset('public/frontend/images/product-detail-02.jpg')}}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
 									</div>
 
-									<div class="item-slick3" data-thumb="{{asset('public/frontend/images/product-detail-03.jpg')}}">
+									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="{{asset('public/frontend/images/product-detail-03.jpg')}}">
+											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{asset('public/frontend/images/product-detail-03.jpg')}}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -733,12 +703,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	
 			/*---------------------------------------------*/
 	
-			// $('.js-addcart-detail').each(function(){
-			// 	var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			// 	$(this).on('click', function(){
-			// 		swal(nameProduct, "is added to cart !", "success");
-			// 	});
-			// });
+			$('.js-addcart-detail').each(function(){
+				var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+				$(this).on('click', function(){
+					swal(nameProduct, "is added to cart !", "success");
+				});
+			});
 		
 		</script>
 	<!--===============================================================================================-->

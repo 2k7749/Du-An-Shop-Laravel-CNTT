@@ -71,36 +71,36 @@
         <div class="flex">
             <!-- BEGIN: Side Menu -->
             <nav class="side-nav">
-                <a href="" class="intro-x flex items-center pl-5 pt-4">
+                <a href="{{URL::to('/sc_admin/dashboard')}}" class="intro-x flex items-center pl-5 pt-4">
                     <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="{{asset('public/backend/dist/images/logo.svg')}}">
                     <span class="hidden xl:block text-white text-lg ml-3"> Mid<span class="font-medium">one</span> </span>
                 </a>
                 <div class="side-nav__devider my-6"></div>
                 <ul>
                     <li>
-                        <a href="{{URL::to('/sc_admin/dashboard')}}" class="side-menu side-menu--active">
+                        <a href="./dashboard" class="side-menu" id="home">
                             <div class="side-menu__icon"> <i data-feather="home"></i> </div>
                             <div class="side-menu__title"> Trang chủ </div>
                         </a>
                     </li>
 
                     <li>
-                        <a href="javascript:;" class="side-menu">
+                        <a href="javascript:;.html" class="side-menu" id="order">
                             <div class="side-menu__icon"> <i data-feather="box"></i> </div>
-                            <div class="side-menu__title"> Đơn đặt hàng <i data-feather="chevron-down" class="side-menu__sub-icon"></i> </div>
+                            <div class="side-menu__title"> Đơn hàng <i data-feather="chevron-down" class="side-menu__sub-icon"></i> </div>
                         </a>
                         <ul class="">
                             <li>
-                                <a href="{{URL::to('/sc_admin/manage-order')}}" class="side-menu">
+                                <a href="./manage-order" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
-                                    <div class="side-menu__title"> Đơn đã thanh toán </div>
+                                    <div class="side-menu__title"> Đơn hàng đã đặt </div>
                                 </a>
-                            </li>
+                            </li>''
                         </ul>
                     </li>
 
                     <li>
-                        <a href="javascript:;" class="side-menu">
+                        <a href="javascript:;.html" class="side-menu" id="category">
                             <div class="side-menu__icon"> <i data-feather="box"></i> </div>
                             <div class="side-menu__title"> Danh mục sản phẩm <i data-feather="chevron-down" class="side-menu__sub-icon"></i> </div>
                         </a>
@@ -327,7 +327,6 @@
                     @yield('allBrandPrdoduct')
                     @yield('addPrdoduct')
                     @yield('allPrdoduct')
-
                         </div>
                     </div>
                 </div>
@@ -339,5 +338,24 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="{{asset('public/backend/dist/js/app.js')}}"></script>
         <!-- END: JS Assets-->
+        <script>
+            let url = 'http://duancntt.io/sc_admin';
+            let curentUrl = window.location.href;
+            window.onload = function(){
+                if( curentUrl == url+'/dashboard'){
+                    $('#home').addClass("side-menu--active");
+                }
+                if(curentUrl ==url+'/manage-order'){
+                    $('#order').addClass("side-menu--active");
+                }
+                
+                if(curentUrl == url+'/all-categoryproduct' || curentUrl == url+'/add-categoryproduct' ){
+                    $('#category').addClass("side-menu--active");
+
+                }
+
+                
+            }
+        </script>
     </body>
 </html>

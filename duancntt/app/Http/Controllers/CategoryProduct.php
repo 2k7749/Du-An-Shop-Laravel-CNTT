@@ -41,7 +41,21 @@ class CategoryProduct extends Controller
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
+        $data['category_action'] = $request->category_action;
 
+        $get_image = $request->file('category_image');
+        if ($get_image) {
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/category',$new_image);
+            $data['category_image'] = $new_image;
+            DB::table('tbl_category_product')->insert($data);
+            Session::put('message','Them danh muc sp thanh cong');
+            return Redirect::to('/sc_admin/add-categoryproduct');
+        }
+
+        $data['category_image'] = null;
         DB::table('tbl_category_product')->insert($data);
         Session::put('message','Them danh muc sp thanh cong');
         return Redirect::to('/sc_admin/add-categoryproduct');
@@ -78,7 +92,20 @@ class CategoryProduct extends Controller
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
+        $data['category_action'] = $request->category_action;
 
+        $get_image = $request->file('category_image');
+        if ($get_image) {
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/category',$new_image);
+            $data['category_image'] = $new_image;
+            DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
+            Session::put('message','Cập nhập danh mục sản phẩm thành công 1');
+            return Redirect::to('/sc_admin/all-categoryproduct');
+        }
+         
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
         Session::put('message','Cập nhập danh mục sản phẩm thành công');
         return Redirect::to('/sc_admin/all-categoryproduct');

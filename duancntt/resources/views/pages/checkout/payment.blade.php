@@ -33,7 +33,7 @@
 										<td class="column-2">{{$item->name}}</td>
 										<td class="column-3">{{number_format($item->price).' VNĐ'}}</td>
 										<td class="column-4">
-											<form action="{{URL::to('/update-cart-quantity')}}" method="POST">
+											<form action="{{URL::to('/update-cart-quantity-checkout')}}" method="POST">
 												{{csrf_field()}}
 												<div class="wrap-num-product flex-w m-l-auto m-r-0">
 													<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -80,16 +80,16 @@
                                 {{ csrf_field() }}
 							<div class="p-t-15">
                                 
-								<div class="bor8 bg0 m-b-12">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="checkbox" name="payment_option" value="1">COD
+								<div class="bor8 bg0 m-b-22">
+									COD: <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="radio" name="payment_option" value="1">
 								</div>
 
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="checkbox" name="payment_option" value="2">Tiền mặt
+									Tiền mặt: <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="radio" name="payment_option" value="2">
                                 </div>
                                 
                                 <div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="checkbox" name="payment_option" value="3">Thanh toán online
+									Thanh toán online: <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="radio" name="payment_option" value="3">
 								</div>
 									
                             </div>
@@ -110,7 +110,7 @@
 						</div>
 					</div>
 					<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-						<input type="submit" value="" name="send_order_place">Check Out Now
+						<input type="submit" value="" name="send_order_place"> Hoàn tất đơn hàng
                     </button>
                 </form>
 				</div>

@@ -26,19 +26,23 @@
               <tr>
                   <th class="whitespace-no-wrap">Tên người mua</th>
                   <th class="whitespace-no-wrap">Số điện thoại</th>
+                  <th class="whitespace-no-wrap">Ghi chú</th>
               </tr>
           </thead>
           <tbody>
 
               <tr class="intro-x">
                   <td>
-                      <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->customer_name}}</a> 
+                      <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->customer_name}}</span> 
                   </td>
 
                   <td>
-                    <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->customer_phone}}</a> 
+                    <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->customer_phone}}</span> 
                   </td>
-                 
+
+                  <td>
+                    <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->shipping_note}}</span> 
+                  </td>
               </tr>
 
           </tbody>
@@ -73,24 +77,29 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-no-wrap">Tên người vận chuyển</th>
+                    <th class="whitespace-no-wrap">Tên người nhận</th>
                     <th class="whitespace-no-wrap">Địa chỉ</th>
                     <th class="whitespace-no-wrap">Số điện thoại</th>
+                    <th class="whitespace-no-wrap">Email</th>
                 </tr>
             </thead>
             <tbody>
   
                 <tr class="intro-x">
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->shipping_name}}</a> 
+                        <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->shipping_name}}</span> 
                     </td>
   
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->shipping_address}}</a> 
+                        <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->shipping_address}}</span> 
                     </td>
 
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->shipping_phone}}</a> 
+                        <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->shipping_phone}}</span> 
+                    </td>
+
+                    <td>
+                        <span class="font-medium whitespace-no-wrap">{{$cus_order_by_id->shipping_email}}</span> 
                     </td>
                    
                 </tr>
@@ -155,23 +164,25 @@
             </thead>
             <tbody>
   
+                @foreach ($order_by_id as $item=>$product)
                 <tr class="intro-x">
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->product_name}}</a> 
+                        <p href="" class="font-medium whitespace-no-wrap">{{$product->product_name}}</p> 
                     </td>
   
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->product_sales_quantity}}</a> 
+                        <p href="" class="font-medium whitespace-no-wrap">{{$product->product_sales_quantity}}</p> 
                     </td>
 
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->product_price}}</a> 
+                        <p href="" class="font-medium whitespace-no-wrap">{{$product->product_price}}</p> 
                     </td>
 
                     <td>
-                        <a href="" class="font-medium whitespace-no-wrap">{{$order_by_id->product_price*$order_by_id->product_sales_quantity}}</a> 
+                        <p href="" class="font-medium whitespace-no-wrap">{{$product->product_price*$product->product_sales_quantity}}</p> 
                     </td>
                 </tr>
+                @endforeach
   
             </tbody>
         </table>

@@ -58,7 +58,8 @@ class AdminController extends Controller
         $this->AuthLogin();
         $all_order = DB::table('tbl_order')
         ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
-        ->select('tbl_order.*','tbl_customer.customer_name')
+        ->join('tbl_payment','tbl_order.payment_id','=','tbl_payment.payment_id')
+        ->select('tbl_order.*','tbl_customer.customer_name','tbl_payment.payment_status')
         ->orderby('tbl_order.order_id','desc')->get();
         $manager_order  = view('admin.manage_order')->with('all_order',$all_order);
         return view('admin_layout')->with('manage_order', $manager_order);
@@ -67,15 +68,17 @@ class AdminController extends Controller
     public function view_order($orderId){
         $this->AuthLogin();
         $order_by_id = DB::table('tbl_order')
+        ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
+        ->where('tbl_order.order_id',$orderId)
+        ->select('tbl_order.*','tbl_order_details.*')->get();
+
+        $cus_order_by_id = DB::table('tbl_order')
         ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
         ->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')
-        ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
-        ->select('tbl_order.*','tbl_customer.*','tbl_shipping.*','tbl_order_details.*')->first();
-        // echo '<pre>';
-        // print_r($order_by_id);
-        // echo '</pre>';
-        $manager_order_by_id  = view('admin.view_order')->with('order_by_id',$order_by_id);
+        ->where('tbl_order.order_id',$orderId)
+        ->select('tbl_order.*','tbl_customer.*','tbl_shipping.*')->first();
+
+        $manager_order_by_id  = view('admin.view_order')->with('order_by_id',$order_by_id)->with('cus_order_by_id',$cus_order_by_id);
         return view('admin_layout')->with('/sc_admin/view_order', $manager_order_by_id);
-        
     }
 }

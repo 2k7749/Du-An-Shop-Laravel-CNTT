@@ -15,7 +15,18 @@ class HomeController extends Controller
         $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
         $new_product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->get();
+        $category_slide = DB::table('tbl_category_product')->where('category_status','1')->get();
 
-        return view('pages/home')->with('category',$category_product)->with('brand',$brand_product)->with('product',$new_product);
+        return view('pages/home')->with('category',$category_product)->with('brand',$brand_product)->with('product',$new_product)->with('slide',$category_slide);
     }
+
+    public function All_Product(){
+        $category_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
+        $new_product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->get();
+        return view('pages/product/all_product')->with('category',$category_product)->with('brand',$brand_product)->with('product',$new_product);
+                                                
+    }
+
+    
 }
